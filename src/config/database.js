@@ -3,5 +3,5 @@ module.exports = {
   password: 'root',
   database: 'webfood',
   host: '127.0.0.1',
-  dialect: 'mysql',
-}
+  dialect: 'mysql'
+};
