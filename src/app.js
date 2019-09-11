@@ -12,5 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/category', routes.category);
+app.use('/product', routes.product);
 
 module.exports = app;
