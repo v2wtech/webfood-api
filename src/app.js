@@ -13,5 +13,6 @@ app.use(bodyParser.json());
 
 app.use('/category', routes.category);
 app.use('/product', routes.product);
+app.use('/employee', routes.employee);
 
 module.exports = app;
