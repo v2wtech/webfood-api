@@ -14,5 +14,6 @@ app.use(bodyParser.json());
 app.use('/category', routes.category);
 app.use('/product', routes.product);
 app.use('/employee', routes.employee);
+app.use('/client', routes.client);
 
 module.exports = app;
