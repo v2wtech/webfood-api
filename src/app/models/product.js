@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     priceSell: DataTypes.DECIMAL(10,2),
     idCategory: DataTypes.INTEGER,
     idSubCategory: DataTypes.INTEGER,
+    enabled: DataTypes.BOOLEAN,
   });
   
   return Product;

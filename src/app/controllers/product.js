@@ -8,6 +8,16 @@ router.get('/', async (req, res) => {
   res.json(product);
 });
 
+router.get('/enabled', async (req, res) => {
+  const product = await Product.findAll({where: { enabled: 1}});
+  res.json(product);
+});
+
+router.get('/disabled', async (req, res) => {
+  const product = await Product.findAll({where: { enabled: 0}})
+  res.json(product);
+});
+
 router.get('/:id', async (req, res) => {
   const product = await Product.findOne({ where: { id: req.params.id }});
   res.json(product);

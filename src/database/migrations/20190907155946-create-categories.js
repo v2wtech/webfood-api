@@ -16,6 +16,10 @@ module.exports = {
         unique: true,
         type: DataTypes.STRING,
       },
+      enabled: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

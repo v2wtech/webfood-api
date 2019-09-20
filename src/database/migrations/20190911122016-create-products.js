@@ -32,6 +32,10 @@ module.exports = {
         allowNull: true,
         type: DataTypes.INTEGER,
       },
+      enabled: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

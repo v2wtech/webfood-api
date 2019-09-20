@@ -8,6 +8,16 @@ router.get('/', async (req, res) => {
   res.json(category);
 });
 
+router.get('/enabled', async (req, res) => {
+  const category = await Category.findAll({where: { enabled: 1}});
+  res.json(category);
+});
+
+router.get('/disabled', async (req, res) => {
+  const category = await Category.findAll({where: { enabled: 0}})
+  res.json(category);
+});
+
 router.get('/:id', async (req, res) => {
   const category = await Category.findOne({ where: { id: req.params.id }});
   res.json(category);
