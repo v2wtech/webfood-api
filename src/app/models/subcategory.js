@@ -1,8 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
-  const Category = sequelize.define('Category', {
+  const Subcategory = sequelize.define('Subcategory', {
+    idCategory: DataTypes.INTEGER,
     title: DataTypes.STRING,
     enabled: DataTypes.BOOLEAN,
   });
 
-  return Category;
+  return Subcategory;
 };
