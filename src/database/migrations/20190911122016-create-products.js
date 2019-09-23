@@ -18,19 +18,25 @@ module.exports = {
       },
       valuePaid: {
         allowNull: true,
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
       },
       priceSell: {
         allowNull: false,
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
       },
       idCategory: {
         allowNull: false,
         type: DataTypes.INTEGER,
+        references: { model: 'Categories', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       idSubCategory: {
-        allowNull: true,
+        allowNull: false,
         type: DataTypes.INTEGER,
+        references: { model: 'Subcategories', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       enabled: {
         allowNull: false,
