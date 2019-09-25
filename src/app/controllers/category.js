@@ -17,7 +17,7 @@ router.get('/disabled', async (req, res) => {
 });
 
 router.get('/id/:id', async (req, res) => {
-  await Category.findOne({ where: { id: req.params.id }})
+  await Category.findByPk(req.params.id)
     .then(category => res.json(category))
     .catch(err => console.log("Error: " + err))
 });
