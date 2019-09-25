@@ -2,40 +2,58 @@ var express = require('express');
 var router = express.Router();
 
 const { Category } = require('../models');
+const { Subcategory } = require('../models');
 
 router.get('/', async (req, res) => {
-  const category = await Category.findAll(req.body);
-  res.json(category);
-});
-
-router.get('/enabled', async (req, res) => {
-  const category = await Category.findAll({ where: { enabled: 1 }});
-  res.json(category);
+  await Category.findAll({ where: { enabled: 1 }})
+    .then(category => res.json(category))
+    .catch(err => console.log("Error: " + err))
 });
 
 router.get('/disabled', async (req, res) => {
-  const category = await Category.findAll({ where: { enabled: 0 }})
-  res.json(category);
+  await Category.findAll({ where: { enabled: 0 }})
+    .then(category => res.json(category))
+    .catch(err => console.log("Error: " + err))
 });
 
-router.get('/:id', async (req, res) => {
-  const category = await Category.findOne({ where: { id: req.params.id }});
-  res.json(category);
+router.get('/id/:id', async (req, res) => {
+  await Category.findOne({ where: { id: req.params.id }})
+    .then(category => res.json(category))
+    .catch(err => console.log("Error: " + err))
+});
+
+router.get('/title/:title', async (req, res) => {
+  await Category.findOne({ where: { title: req.params.title }})
+    .then(category => res.json(category))
+    .catch(err => console.log("Error: " + err))
+});
+
+router.get('/:id/subcategory', async (req, res) => {
+  await Category.findByPk(req.params.id, { include: [Subcategory] })
+    .then(category => res.json(category.dataValues))
+    .catch(err => console.log("Error: " + err))
 });
 
 router.post('/register', async (req, res) => {
-  const category = await Category.create(req.body);
-  res.json(category);
+  await Category.findOrCreate({ where: { title: req.body.title }, defaults: { enabled: 1 }})
+  .then(([category]) => {
+    res.json(category.get({
+      plain: true,
+    }));
+  })
+  .catch(err => console.log("Error: "+ err))
 });
 
 router.put('/update/:id', async (req, res) => {
-  const category = await Category.update(req.body, { where: { id: req.params.id }});
-  res.json(category);
+  await Category.update(req.body, { where: { id: req.params.id }})
+    .then(category => res.json(category))
+    .catch(err => console.log("Error: " + err))
 });
 
 router.delete('/delete/:id', async (req, res) => {
-  const category = await Category.destroy({ where: { id: req.params.id }});
-  res.json(category);
+  await Category.destroy({ where: { id: req.params.id }})
+    .then(category => res.json(category))
+    .catch(err => console.log("Error: " + err))
 });
 
 module.exports = router;
