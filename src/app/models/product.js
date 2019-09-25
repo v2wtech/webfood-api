@@ -4,10 +4,15 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     valuePaid: DataTypes.DECIMAL(10,2),
     priceSell: DataTypes.DECIMAL(10,2),
-    idCategory: DataTypes.INTEGER,
-    idSubCategory: DataTypes.INTEGER,
+    CategoryId: DataTypes.INTEGER,
+    SubCategoryId: DataTypes.INTEGER,
     enabled: DataTypes.BOOLEAN,
-  });
+  }, {});
   
+  Product.associate = (models) => {
+    Product.belongsTo(models.Category);
+    Product.belongsTo(models.Subcategory);
+  };
+
   return Product;
 };

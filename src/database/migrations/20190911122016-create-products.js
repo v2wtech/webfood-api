@@ -24,14 +24,14 @@ module.exports = {
         allowNull: false,
         type: DataTypes.DECIMAL(10, 2),
       },
-      idCategory: {
+      CategoryId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: { model: 'Categories', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      idSubCategory: {
+      SubCategoryId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: { model: 'Subcategories', key: 'id' },

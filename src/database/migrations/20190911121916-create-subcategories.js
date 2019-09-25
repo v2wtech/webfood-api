@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      idCategory: {
+      CategoryId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: { model: 'Categories', key: 'id' },
