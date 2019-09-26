@@ -1,7 +1,10 @@
 var express = require('express');
+var Sequelize = require('sequelize');
 var router = express.Router();
 
 const { Subcategory } = require('../models');
+
+const Op = Sequelize.Op;
 
 router.get('/', async (req, res) => {
   await Subcategory.findAll({ where: { enabled: 1 }})
@@ -22,7 +25,13 @@ router.get('/id/:id', async (req, res) => {
 });
 
 router.get('/title/:title', async (req, res) => {
-  await Subcategory.findOne({ where: { title: req.params.title }})
+  await Subcategory.findAll({ 
+    where: { 
+      title: { 
+        [Op.like]: `%${req.params.title}%` 
+      }
+    }
+  })
     .then(subcategory => res.json(subcategory))
     .catch(err => console.log("Error: " + err))
 });
@@ -37,12 +46,12 @@ router.post('/register', async (req, res) => {
       enabled: 1 
     }
   })
-  .then(([subcategory]) => {
-    res.json(subcategory.get({
-      plain: true,
-    }));
-  })
-  .catch(err => console.log("Error: "+ err))
+    .then(([subcategory]) => {
+      res.json(subcategory.get({
+        plain: true,
+      }));
+    })
+    .catch(err => console.log("Error: " + err))
 });
 
 router.put('/update/:id', async (req, res) => {
