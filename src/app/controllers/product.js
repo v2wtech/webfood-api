@@ -1,7 +1,10 @@
 var express = require('express');
+var Sequelize = require('sequelize');
 var router = express.Router();
 
 const { Product } = require('../models');
+
+const Op = Sequelize.Op;
 
 router.get('/', async (req, res) => {
   await Product.findAll({ where: { enabled: 1 }})
@@ -22,7 +25,13 @@ router.get('/id/:id', async (req, res) => {
 });
 
 router.get('/title/:title', async (req, res) => {
-  await Product.findOne({ where: { title: req.params.title }})
+  await Product.findAll({ 
+    where: { 
+      title: {
+        [Op.like]: `%${req.params.title}%`
+      } 
+    }
+  })
     .then(product => res.json(product))
     .catch(err => console.log("Error: " + err))
 });
@@ -40,12 +49,12 @@ router.post('/register', async (req, res) => {
       enabled: 1 
     }
   })
-  .then(([product]) => {
-    res.json(product.get({
-      plain: true,
-    }));
-  })
-  .catch(err => console.log("Error: "+ err))
+    .then(([product]) => {
+      res.json(product.get({
+        plain: true,
+      }));
+    })
+    .catch(err => console.log("Error: " + err))
 });
 
 router.put('/update/:id', async (req, res) => {
