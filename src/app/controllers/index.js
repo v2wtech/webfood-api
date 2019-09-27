@@ -1,8 +1,9 @@
-const category = require('./category');
+const category    = require('./category');
 const subcategory = require('./subcategory');
-const product = require('./product');
-const employee = require('./employee');
-const client = require('./client');
+const product     = require('./product');
+const employee    = require('./employee');
+const client      = require('./client');
+const login       = require('./login');
 
 module.exports = {
   category,
@@ -10,4 +11,5 @@ module.exports = {
   product,
   employee,
   client,
+  login,
 };
