@@ -109,7 +109,7 @@ main {
   color: #888;
 }
 
-.methods {
+.methods, .routes {
   widows: 100%;
   height: auto;
   background: #fff;
@@ -120,7 +120,7 @@ main {
   justify-items: center;
 }
 
-.mType{
+.mType, .mRoute {
   width: 100vw;
   height: auto;
   background: #fff;
@@ -160,6 +160,17 @@ main {
 
   margin-left: 10px;
 }
+
+/* URL */
+#mRoute {
+  background: #e4e4e4;
+  border-color: #000000;
+} 
+
+#bRoute {
+  background: #000000;
+}
+
  /* GET */
 #mGet {
   background: #c9e8ff;
