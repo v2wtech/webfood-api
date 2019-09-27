@@ -11,10 +11,12 @@ const { Employee } = require('../models');
 router.post('/', async (req, res) => {
   const { user, password } = req.body;
 
+  console.log(user);
+
   if (user && password) {
     let employee = await Employee.getEmployee({ user: user });
 
-    console.log(employee);
+    // console.log(employee);
 
     if (!employee) {
       res.status(401).json({ msg: "Employee doesn't exist", employee });
