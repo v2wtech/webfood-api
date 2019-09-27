@@ -6,6 +6,11 @@ const config = require('../../config/database');
 const db = {};
 const sequelize = new Sequelize(config);
 
+sequelize
+  .authenticate()
+  .then(() => console.log('Connection has been established successfully.'))
+  .catch(err => console.error('Unable to connect to the database:', err));
+
 fs
   .readdirSync(__dirname)
   .filter(file => (file.indexOf('.') !== 0) && (file !== path.basename(__filename)) && (file.slice(-3) === '.js'))

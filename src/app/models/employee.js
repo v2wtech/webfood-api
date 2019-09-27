@@ -10,5 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     enabled: DataTypes.BOOLEAN,
   });
 
+  Employee.getEmployee = async obj => {
+      return await Employee.findOne({ where: obj });
+  };
+
   return Employee;
 };
+

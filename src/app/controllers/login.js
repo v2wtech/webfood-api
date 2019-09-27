@@ -14,8 +14,6 @@ router.post('/', async (req, res) => {
   if (user && password) {
     let employee = await Employee.getEmployee({ user: user });
 
-    console.log(employee);
-
     if (!employee) {
       res.status(401).json({ msg: "Employee doesn't exist", employee });
     }
