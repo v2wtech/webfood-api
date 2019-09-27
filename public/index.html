@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Webfood | API</title>
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+  <div id="wb-container">
+    <nav>
+      <div id="logo">
+        <p id="title"> Webfood | API </p>
+        <p id="version">v1.0.0</p>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#Welcome">Welcome</a></li>
+        <li class="nav-item"><a href="#Category">Category</a></li>
+        <li class="nav-item"><a href="#Subcategory">Subcategory</a></li>
+        <li class="nav-item"><a href="#Product">Product</a></li>
+        <li class="nav-item"><a href="#Employee">Employee</a></li>
+        <li class="nav-item"><a href="#Client">Client</a></li>
+      </ul>
+    </nav>
+
+    <header>
+
+    </header>
+
+    <main>
+      <!-- START WELCOME -->
+      <div id="Welcome" class="content">
+        <h2>Welcome</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis labore ea repellendus mollitia
+          doloremque
+          atque temporibus esse eaque impedit maiores, eum accusamus cumque, earum voluptatibus possimus aut sit,
+          repudiandae vero.</p>
+        <p>Adipisci, dicta quis? Earum distinctio libero veniam cumque repellat a ipsam? Nobis tempore eveniet
+          possimus,
+          fuga deleniti quaerat velit natus accusantium sunt impedit? Maiores animi distinctio, dolorum expedita nisi
+          harum!</p>
+        <p>Laborum, est? Adipisci suscipit fugiat commodi, odio incidunt delectus. Recusandae minus asperiores
+          inventore
+          repellat corporis suscipit est. Sint officiis repellat architecto repellendus suscipit asperiores, quasi id
+          vitae non. Nostrum, assumenda.</p>
+        <p>In voluptates, consectetur accusantium nesciunt rem eaque aliquam est explicabo distinctio quod quam
+          debitis,
+          nulla expedita ex commodi obcaecati alias rerum blanditiis tenetur natus temporibus. Iure, dignissimos eum.
+          Obcaecati, quod?</p>
+        <p>Et dolorum repellat commodi necessitatibus, amet minima exercitationem odit vitae illum maxime magni totam!
+          Debitis, ad error? Accusantium similique aspernatur culpa pariatur nemo eveniet numquam itaque officiis
+          modi.
+          Doloremque, maiores.</p>
+      </div>
+      <!-- END WELCOME -->
+      
+      <!-- START CATEGORY -->
+      <div id="Category" class="content">
+        <h2>Category <span> | Methods About Category </span></h2>
+        <hr>
+        <div class="methods">
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/category/</span>
+            <span class="router-info">Retorna todas as categorias habilitadas</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/category/disabled</span>
+            <span class="router-info">Retorna todas as categorias desabilitadas</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/category/id/{id}</span>
+            <span class="router-info">Retorna a categoria de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/category/title/{title}</span>
+            <span class="router-info">Retorna uma ou várias categorias, de acordo com o <b>{ title }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/category/{id}/subcategory</span>
+            <span class="router-info">Retorna as subcategorias que pertencem a categoria, de acordo com o <b>{ id
+                }</b></span>
+          </div>
+
+          <div class="mType" id="mPost">
+            <button class="bMethods" id="bPost"> POST </button>
+            <span class="router">/category/register</span>
+            <span class="router-info">Cadastra uma categoria</span>
+          </div>
+
+          <div class="mType" id="mPut">
+            <button class="bMethods" id="bPut"> PUT </button>
+            <span class="router">/category/{id}</span>
+            <span class="router-info">Altera os dados da categoria de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mDelete">
+            <button class="bMethods" id="bDelete"> DELETE </button>
+            <span class="router">/category/{id}</span>
+            <span class="router-info">Deleta a categoria de acordo com o <b>{ id }</b></span>
+          </div>
+        </div>
+      </div>
+      <!-- END CATEGORY -->
+
+      <!-- START SUBCATEGORY -->
+      <div id="Subcategory" class="content">
+        <h2>Subcategory<span> | Methods About Subcategory </span></h2>
+        <hr>
+        <div class="methods">
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/subcategory/</span>
+            <span class="router-info">Retorna todas as subcategorias habilitadas</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/subcategory/disabled</span>
+            <span class="router-info">Retorna todas as subcategorias desabilitadas</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/subcategory/id/{id}</span>
+            <span class="router-info">Retorna a subcategoria de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/subcategory/title/{title}</span>
+            <span class="router-info">Retorna uma ou várias subcategorias, de acordo com o <b>{ title }</b></span>
+          </div>
+
+          <div class="mType" id="mPost">
+            <button class="bMethods" id="bPost"> POST </button>
+            <span class="router">/subcategory/register</span>
+            <span class="router-info">Cadastra uma subcategoria</span>
+          </div>
+
+          <div class="mType" id="mPut">
+            <button class="bMethods" id="bPut"> PUT </button>
+            <span class="router">/subcategory/{id}</span>
+            <span class="router-info">Altera os dados da subcategoria de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mDelete">
+            <button class="bMethods" id="bDelete"> DELETE </button>
+            <span class="router">/subcategory/{id}</span>
+            <span class="router-info">Deleta a subcategoria de acordo com o <b>{ id }</b></span>
+          </div>
+        </div>
+      </div>
+      <!-- END SUBCATEGORY -->
+
+      <!-- START PRODUCT -->
+      <div id="Product" class="content">
+        <h2>Product <span> | Methods About Product </span></h2>
+        <hr>
+        <div class="methods">
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/product/</span>
+            <span class="router-info">Retorna todos os produtos habilitados</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/product/disabled</span>
+            <span class="router-info">Retorna todos os produtos desabilitados</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/product/id/{id}</span>
+            <span class="router-info">Retorna o produto de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/product/title/{title}</span>
+            <span class="router-info">Retorna um ou vários produtos, de acordo com o <b>{ title }</b></span>
+          </div>
+
+          <div class="mType" id="mPost">
+            <button class="bMethods" id="bPost"> POST </button>
+            <span class="router">/product/register</span>
+            <span class="router-info">Cadastra um produto</span>
+          </div>
+
+          <div class="mType" id="mPut">
+            <button class="bMethods" id="bPut"> PUT </button>
+            <span class="router">/product/{id}</span>
+            <span class="router-info">Altera os dados do produto de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mDelete">
+            <button class="bMethods" id="bDelete"> DELETE </button>
+            <span class="router">/product/{id}</span>
+            <span class="router-info">Deleta o produto de acordo com o <b>{ id }</b></span>
+          </div>
+        </div>
+      </div>
+      <!-- END PRODUCT -->
+
+      <!-- START EMPLOYEE -->
+      <div id="Employee" class="content">
+        <h2>Employee <span> | Methods About Employee </span></h2>
+        <hr>
+        <div class="methods">
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/employee/</span>
+            <span class="router-info">Retorna todos os funcionários habilitados</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/employee/disabled</span>
+            <span class="router-info">Retorna todos os funcionários desabilitados</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/employee/id/{id}</span>
+            <span class="router-info">Retorna o funcionário de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/employee/rg/{rg}</span>
+            <span class="router-info">Retorna um ou vários funcionários, de acordo com o <b>{ rg }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/employee/name/{name}</span>
+            <span class="router-info">Retorna um ou vários funcionários, de acordo com o <b>{ name }</b></span>
+          </div>
+
+          <div class="mType" id="mPost">
+            <button class="bMethods" id="bPost"> POST </button>
+            <span class="router">/employee/register</span>
+            <span class="router-info">Cadastra um funcionário</span>
+          </div>
+
+          <div class="mType" id="mPut">
+            <button class="bMethods" id="bPut"> PUT </button>
+            <span class="router">/employee/{id}</span>
+            <span class="router-info">Altera os dados do funcionário de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mDelete">
+            <button class="bMethods" id="bDelete"> DELETE </button>
+            <span class="router">/employee/{id}</span>
+            <span class="router-info">Deleta um funcionário de acordo com a <b>{ id }</b></span>
+          </div>
+        </div>
+      </div>
+      <!-- END EMPLOYEE -->
+
+      <!-- START CLIENT -->
+      <div id="Client" class="content">
+        <h2>Client <span> | Methods About Client </span></h2>
+        <hr>
+        <div class="methods">
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/client/</span>
+            <span class="router-info">Retorna todos os clientes habilitados</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/client/disabled</span>
+            <span class="router-info">Retorna todos os clientes desabilitados</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/client/id/{id}</span>
+            <span class="router-info">Retorna o cliente de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/client/phone/{phone}</span>
+            <span class="router-info">Retorna um ou vários clientes, de acordo com o <b>{ phone }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/client/name/{name}</span>
+            <span class="router-info">Retorna um ou vários clientes, de acordo com o <b>{ name }</b></span>
+          </div>
+
+          <div class="mType" id="mPost">
+            <button class="bMethods" id="bPost"> POST </button>
+            <span class="router">/client/register</span>
+            <span class="router-info">Cadastra um cliente</span>
+          </div>
+
+          <div class="mType" id="mPut">
+            <button class="bMethods" id="bPut"> PUT </button>
+            <span class="router">/client/{id}</span>
+            <span class="router-info">Altera os dados do cliente de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mDelete">
+            <button class="bMethods" id="bDelete"> DELETE </button>
+            <span class="router">/client/{id}</span>
+            <span class="router-info">Deleta um cliente de acordo com a <b>{ id }</b></span>
+          </div>
+        </div>
+      </div>
+      <!-- END CLIENT -->
+    </main>
+  </div>
+</body>
+
+</html>
