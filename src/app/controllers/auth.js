@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { Employee } = require('../models');
 
 const passport    = require('passport');
@@ -8,7 +10,7 @@ let JwtStrategy = passportJWT.Strategy;
 let jwtOptions  = {};
 
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-jwtOptions.secretOrKey = 'wowwow'; // TODO: retrieve key from dotenv
+jwtOptions.secretOrKey = process.env.SECRET; // TODO: retrieve key from dotenv
 
 let strategy = new JwtStrategy(jwtOptions, (payload, next) => {
   let user = Employee.getEmployee({ id: payload.id });
