@@ -44,6 +44,7 @@ router.post('/register', async (req, res) => {
     defaults: { 
       valuePaid: req.body.valuePaid,
       priceSell: req.body.priceSell,
+      GroupId: req.body.GroupId,
       CategoryId: req.body.CategoryId,
       SubCategoryId: req.body.SubCategoryId,
       enabled: 1 

@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
   <title>Webfood | API</title>
 
   <!-- Fonts -->
@@ -24,6 +27,7 @@
       </div>
       <ul class="nav-list">
         <li class="nav-item"><a href="#Welcome">Welcome</a></li>
+        <li class="nav-item"><a href="#Group">Group</a></li>
         <li class="nav-item"><a href="#Category">Category</a></li>
         <li class="nav-item"><a href="#Subcategory">Subcategory</a></li>
         <li class="nav-item"><a href="#Product">Product</a></li>
@@ -63,7 +67,6 @@
       </div>
       <!-- END WELCOME -->
 
-
       <!-- START ROUTE -->
       <div id="Route" class="content">
         <h2>Route <span> | URL </span></h2>
@@ -76,9 +79,64 @@
           </div>
         </div>
       </div>
-
-
       <!-- END ROUTE -->
+
+      <!-- START GROUP -->
+      <div id="Group" class="content">
+        <h2>Group <span> | Methods About Group </span></h2>
+        <hr>
+        <div class="methods">
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/group/</span>
+            <span class="router-info">Retorna todos os grupos habilitados</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/group/disabled</span>
+            <span class="router-info">Retorna todos os grupos desabilitados</span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/group/id/{id}</span>
+            <span class="router-info">Retorna o grupo de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/group/title/{title}</span>
+            <span class="router-info">Retorna um ou vários grupos, de acordo com o <b>{ title }</b></span>
+          </div>
+
+          <div class="mType" id="mGet">
+            <button class="bMethods" id="bGet"> GET </button>
+            <span class="router">/group/{id}/category</span>
+            <span class="router-info">Retorna as categorias que pertencem ao grupo, de acordo com o <b>{ id
+                }</b></span>
+          </div>
+
+          <div class="mType" id="mPost">
+            <button class="bMethods" id="bPost"> POST </button>
+            <span class="router">/group/register</span>
+            <span class="router-info">Cadastra um grupo</span>
+          </div>
+
+          <div class="mType" id="mPut">
+            <button class="bMethods" id="bPut"> PUT </button>
+            <span class="router">/group/{id}</span>
+            <span class="router-info">Altera os dados do grupo de acordo com o <b>{ id }</b></span>
+          </div>
+
+          <div class="mType" id="mDelete">
+            <button class="bMethods" id="bDelete"> DELETE </button>
+            <span class="router">/group/{id}</span>
+            <span class="router-info">Deleta o grupo de acordo com o <b>{ id }</b></span>
+          </div>
+        </div>
+      </div>
+      <!-- END GROUP -->
 
       <!-- START CATEGORY -->
       <div id="Category" class="content">

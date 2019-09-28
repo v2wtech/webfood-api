@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
+const path = require('path');   
+const auth = require('./app/controllers/auth');
 
 const app = express();
 
 const routes = require('./app/controllers');
-const auth = require('./app/controllers/auth');
 
 app.use(cors());
 app.use(auth.passport.initialize());
@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 function loadRoutes(app, routes) {
-  for (let route in routes)
+  for (let route in routes) 
     app.use(`/api/${route}`, routes[route]);
 }
 
