@@ -24,6 +24,13 @@ module.exports = {
         allowNull: false,
         type: DataTypes.DECIMAL(10, 2),
       },
+      GroupId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: { model: 'Groups', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       CategoryId: {
         allowNull: false,
         type: DataTypes.INTEGER,

@@ -85,13 +85,16 @@ main {
 
 .content {
   width: 90%;
-  min-height: 50%;
   height: auto;
   padding-top: 3%;
 }
 
+.content:first-child {
+  min-height: 65%;
+}
+
 .content:last-child {
-  padding-bottom: 10%;
+  padding-bottom: 20%;
 }
 
 .content > h2 { 
