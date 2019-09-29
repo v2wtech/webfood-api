@@ -10,7 +10,7 @@ let JwtStrategy = passportJWT.Strategy;
 let jwtOptions  = {};
 
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-jwtOptions.secretOrKey = process.env.SECRET; // TODO: retrieve key from dotenv
+jwtOptions.secretOrKey = process.env.SECRET;
 
 let strategy = new JwtStrategy(jwtOptions, (payload, next) => {
   let user = Employee.getEmployee({ id: payload.id });

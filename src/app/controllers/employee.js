@@ -4,6 +4,8 @@ var router = express.Router();
 
 const { Employee } = require('../models');
 
+const sanitize = require('./sanitizer');
+
 const Op = Sequelize.Op;
 
 router.get('/', async (req, res) => {
