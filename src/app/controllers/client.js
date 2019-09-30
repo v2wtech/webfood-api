@@ -24,24 +24,21 @@ router.get('/id/:id', async (req, res) => {
     .catch(err => console.log("Error: " + err))
 });
 
-router.get('/name/:name', async (req, res) => {
+router.get('/search/:client', async (req, res) => {
   await Client.findAll({ 
     where: {
-      name: {
-        [Op.like]: `%${req.params.name}%`
-      }
-    }
-  })
-    .then(client => res.json(client))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/phone/:phone', async (req, res) => {
-  await Client.findAll({ 
-    where: {
-      phone: {
-        [Op.like]: `%${req.params.phone}%`
-      }
+      [Op.or]: [
+        {
+          name: {
+            [Op.like]: `%${req.params.client}%`
+          }
+        },
+        {
+          phone: {
+            [Op.like]: `%${req.params.client}%`
+          }
+        }
+      ]
     }
   })
     .then(client => res.json(client))
