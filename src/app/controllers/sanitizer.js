@@ -58,8 +58,6 @@ class Sanitizer {
   }
 }
 
-Object.prototype.sanitize = function () {
-  new Sanitizer(this);
-};
+const sanitize = obj => new Sanitizer(obj);
 
 module.exports = { sanitize };

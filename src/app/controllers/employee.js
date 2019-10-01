@@ -4,6 +4,8 @@ var router = express.Router();
 
 const { Employee } = require('../models');
 
+const { sanitize } = require('./sanitizer.js');
+
 const Op = Sequelize.Op;
 
 router.get('/', async (req, res) => {
@@ -55,7 +57,7 @@ router.post('/register', async (req, res) => {
     },
     defaults: {
       name: req.body.name,
-      phone: req.body.phone,
+      phone: sanitize({ phone: req.body.phone }),
       role: req.body.role,
       permission: req.body.permission,
       user: req.body.user,
