@@ -16,7 +16,13 @@ class Sanitizer {
     ]
   };
 
-  constructor (fields) {
+  constructor () { }
+
+  /* @description    Takes a list of fields and checks if they are suitable to be parsed
+   * @param {object} The fields themselves.
+   * @returns {string|TypeError}
+   */
+  verify (fields) {
     if (!(Object.keys(fields) in this.masks))
       throw new TypeError('Unable to sanitize these values: ' + fields);
     else {
@@ -58,6 +64,4 @@ class Sanitizer {
   }
 }
 
-const sanitize = obj => new Sanitizer(obj);
-
-module.exports = { sanitize };
+module.exports = { Sanitizer };
