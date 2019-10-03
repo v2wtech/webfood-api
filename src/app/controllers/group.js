@@ -45,13 +45,20 @@ router.get('/:id/category', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  await Group.findOrCreate({ 
-    where: { 
-      title: req.body.title 
-    }, 
-    defaults: { 
+  const options = {
+    where: {},
+    defaults: {
       enabled: 1
     }
+  };
+
+  const { title } = req.body;
+
+  if (title !== undefined)
+    options.where.title = title;
+
+  await Group.findOrCreate({
+    options
   })
     .then(([group]) => {
       res.json(group.get({
