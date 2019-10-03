@@ -1,22 +1,22 @@
 /** @description Validates specific object formats with a predefined mask.
  */
 class Sanitizer {
-  masks = {
-    rg: [
-      /^\d{2}(\.\d{3}){2}\-\d{1}$/,
-      '00.000.000-0'
-    ],
-    password: [
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
-      '1 lowercase, uppercase, numeric & special char with length of 8 chars total.'
-    ],
-    phone: [
-      /(?:^\([0]?[1-9]{2}\)|^[0]?[1-9]{2}[\.-\s]?)[9]?[1-9]\d{3}[\.-\s]?\d{4}$/,
-      '(00)00000-0000'
-    ]
-  };
-
-  constructor () { }
+  constructor () {
+    this.masks = {
+      rg: [
+        /^\d{2}(\.\d{3}){2}\-\d{1}$/,
+        '00.000.000-0'
+      ],
+      password: [
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
+        '1 lowercase, uppercase, numeric & special char with length of 8 chars total.'
+      ],
+      phone: [
+        /(?:^\([0]?[1-9]{2}\)|^[0]?[1-9]{2}[\.-\s]?)[9]?[1-9]\d{3}[\.-\s]?\d{4}$/,
+        '(00)00000-0000'
+      ]
+    };
+  }
 
   /* @description    Takes a list of fields and checks if they are suitable to be parsed
    * @param {object} The fields themselves.
