@@ -1,88 +1,79 @@
-var express = require('express');
-var Sequelize = require('sequelize');
-var router = express.Router();
-
+const Sequelize = require('sequelize');
 const { Employee } = require('../models');
-
-const { Sanitizer } = require('./sanitizer.js');
+const { Sanitizer } = require('../../config/sanitizer');
 
 const Op = Sequelize.Op;
 
-router.get('/', async (req, res) => {
-  await Employee.findAll({ where: { enabled: 1 } })
-    .then(employee => res.json(employee))
-    .catch(err => console.log("Error: " + err))
-});
+module.exports = {
+  async index(req, res) {
+    const { name, enabled } = req.query;
 
-router.get('/disabled', async (req, res) => {
-  await Employee.findAll({ where: { enabled: 0 } })
-    .then(employee => res.json(employee))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/id/:id', async (req, res) => {
-  await Employee.findByPk(req.params.id)
-    .then(employee => res.json(employee))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/search/:employee', async (req, res) => {
-  await Employee.findAll({
-    where: {
-      [Op.or]: [
-        {
-          name: {
-            [Op.like]: `%${req.params.employee}%`
-          }
-        },
-        {
-          rg: {
-            [Op.like]: `%${req.params.employee}%`
-          }
-        }
-      ]
-    }
-  })
-    .then(employee => res.json(employee))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.post('/register', async (req, res) => {
-  const sanitizer = new Sanitizer();
-
-  await Employee.findOrCreate({
-    where: {
-      rg: req.body.rg
-    },
-    defaults: {
-      name: req.body.name,
-      phone: sanitizer.verify({ phone: req.body.phone }),
-      role: req.body.role,
-      permission: req.body.permission,
-      user: req.body.user,
-      password: req.body.password,
-      enabled: 1,
-    }
-  })
-    .then(([employee]) => {
-      res.json(employee.get({
-        plain: true,
-      }));
+    await Employee.findAll({
+      where: {
+        name: { [Op.like]: `%${ name }%` },
+        [Op.or]: [{
+          enabled: { [Op.like]: `%${ enabled }%` }
+        }]
+      }
     })
-    .catch(err => console.log("Error: " + err))
-});
+      .then(employee => { return res.json(employee); })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-router.put('/update/:id', async (req, res) => {
-  await Employee.update(req.body, { where: { id: req.params.id } })
-    .then(employee => res.json(employee))
-    .catch(err => console.log("Error: " + err))
-});
+  async show(req, res) {
+    const { name, user } = req.query;
 
-router.delete('/delete/:id', async (req, res) => {
-  await Employee.destroy({ where: { id: req.params.id } })
-    .then(employee => res.json(employee))
-    .catch(err => console.log("Error: " + err))
-});
+    await Employee.findOne({
+      where: {
+        name: { [Op.like]: `%${ name }%` },
+        [Op.or]: [{
+          user: { [Op.like]: `%${ user }%` }
+        }]
+      }
+    })
+      .then(employee => { return res.json(employee); })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-module.exports = router;
+  async store(req, res) {
+    const { name, rg, phone, role, permission, user, password } = req.body;
+    
+    const sanitizer = new Sanitizer();
+    
+    await Employee.findOrCreate({
+      where: { [Op.or]: [{ rg }, { user }] },
+      defaults: {
+        name,
+        rg,
+        phone: sanitizer.verify({ phone }),
+        role,
+        permission,
+        user,
+        password,
+        enabled: 1
+      }
+    })
+      .then(([employee, created]) => {
+        res.json(employee.get({ plain: true }));
+        console.log('Created employee: ' + created);
+      })
+      .catch(err => console.log('Error: ' + err))
+  },
 
+  async update(req, res) {
+    const { employee_id } = req.params;
+    const { name, rg, phone, role, permission, user, password, enabled } = req.body;
+
+    await Employee.update({ name, rg, phone, role, permission, user, password, enabled }, { where: { id: employee_id } })
+      .then(employee => { return res.json(employee); })
+      .catch(err => console.log('Error: ' + err))
+  },
+
+  async destroy(req, res) {
+    const { employee_id } = req.params;
+
+    await Employee.destroy({ where: { id: employee_id } })
+      .then(employee => { return res.json(employee); })
+      .catch(err => console.log('Error: ' + err))
+  }
+};

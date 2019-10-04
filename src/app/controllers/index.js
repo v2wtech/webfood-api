@@ -1,17 +1,17 @@
-const group       = require('./group');
-const category    = require('./category');
-const subcategory = require('./subcategory');
-const product     = require('./product');
-const employee    = require('./employee');
-const client      = require('./client');
-const login       = require('./login');
+const GroupController = require('./Group');
+const CategoryController = require('./Category');
+const SubcategoryController = require('./Subcategory');
+const ProductController = require('./Product');
+const EmployeeController = require('./Employee');
+const ClientController = require('./Client');
+const SessionController = require('./Session');
 
 module.exports = {
-  group,
-  category,
-  subcategory,
-  product,
-  employee,
-  client,
-  login,
-};
+  GroupController,
+  CategoryController,
+  SubcategoryController,
+  ProductController,
+  EmployeeController,
+  ClientController,
+  SessionController
+}

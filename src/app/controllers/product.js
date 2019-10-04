@@ -1,73 +1,64 @@
-var express = require('express');
-var Sequelize = require('sequelize');
-var router = express.Router();
-
+const Sequelize = require('sequelize');
 const { Product } = require('../models');
 
 const Op = Sequelize.Op;
 
-router.get('/', async (req, res) => {
-  await Product.findAll({ where: { enabled: 1 }})
-    .then(product => res.json(product))
-    .catch(err => console.log("Error: " + err))
-});
+module.exports = {
+  async index(req, res) {
+    const { title, enabled } = req.query;
 
-router.get('/disabled', async (req, res) => {
-  await Product.findAll({ where: { enabled: 0 }})
-    .then(product => res.json(product))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/id/:id', async (req, res) => {
-  await Product.findByPk(req.params.id)
-    .then(product => res.json(product))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/title/:title', async (req, res) => {
-  await Product.findAll({ 
-    where: { 
-      title: {
-        [Op.like]: `%${req.params.title}%`
-      } 
-    }
-  })
-    .then(product => res.json(product))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.post('/register', async (req, res) => {
-  await Product.findOrCreate({ 
-    where: { 
-      title: req.body.title 
-    }, 
-    defaults: { 
-      valuePaid: req.body.valuePaid,
-      priceSell: req.body.priceSell,
-      GroupId: req.body.GroupId,
-      CategoryId: req.body.CategoryId,
-      SubCategoryId: req.body.SubCategoryId,
-      enabled: 1 
-    }
-  })
-    .then(([product]) => {
-      res.json(product.get({
-        plain: true,
-      }));
+    await Product.findAll({
+      where: {
+        title: { [Op.like]: `%${ title }%` },
+        [Op.or]: [{
+          enabled: { [Op.like]: `%${ enabled }%` }
+        }]
+      }
     })
-    .catch(err => console.log("Error: " + err))
-});
+      .then(product => { return res.json(product); })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-router.put('/update/:id', async (req, res) => {
-  await Product.update(req.body, { where: { id: req.params.id }})
-    .then(product => res.json(product))
-    .catch(err => console.log("Error: " + err))
-});
+  async show(req, res) {
+    const { title } = req.query;
 
-router.delete('/delete/:id', async (req, res) => {
-  await Product.destroy({ where: { id: req.params. id }})
-    .then(product => res.json(product))
-    .catch(err => console.log("Error: " + err))
-});
+    await Product.findOne({
+      where: {
+        title: { [Op.like]: `%${ title }%` }
+      }
+    })
+      .then(product => { return res.json(product); })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-module.exports = router;
+  async store(req, res) {
+    const { title, description, valuePaid, priceSell, groupId, categoryId, subcategoryId } = req.body;
+
+    await Product.findOrCreate({ where: { title }, defaults: { description, valuePaid, priceSell, groupId, categoryId, subcategoryId, enabled: 1 } })
+      .then(([product, created]) => {
+        res.json(product.get({ plain: true }));
+        console.log('Created product: ' + created);
+      })
+      .catch(err => console.log('Error: ' + err))
+  },
+
+  async update(req, res) {
+    const { product_id } = req.params;
+    const { title, description, valuePaid, priceSell, groupId, categoryId, subcategoryId, enabled } = req.body;
+
+    await Product.update({ title, description, valuePaid, priceSell, groupId, categoryId, subcategoryId, enabled }, { where: { id: product_id } })
+      .then(product => { return res.json(product); })
+      .catch(err => console.log('Error: ' + err))
+  },
+
+  async destroy(req, res) {
+    const { product_id } = req.params;
+
+    await Product.destroy({ where: { id: product_id } })
+      .then(product => { return res.json(product); })
+      .catch(err => console.log('Error: ' + err))
+  }
+};
+
+
+

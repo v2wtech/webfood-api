@@ -1,9 +1,8 @@
 require('dotenv').config();
-
-const { Employee } = require('../models');
-
 const passport    = require('passport');
 const passportJWT = require('passport-jwt');
+
+const { Employee } = require('../app/models');
 
 let ExtractJwt  = passportJWT.ExtractJwt;
 let JwtStrategy = passportJWT.Strategy;

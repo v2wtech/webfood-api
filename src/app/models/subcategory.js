@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Subcategory = sequelize.define('Subcategory', {
-    CategoryId: DataTypes.INTEGER,
+    categoryId: DataTypes.INTEGER,
     title: DataTypes.STRING,
     enabled: DataTypes.BOOLEAN,
   }, {});

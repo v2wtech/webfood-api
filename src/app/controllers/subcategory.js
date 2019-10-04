@@ -1,69 +1,61 @@
-var express = require('express');
-var Sequelize = require('sequelize');
-var router = express.Router();
-
+const Sequelize = require('sequelize');
 const { Subcategory } = require('../models');
 
 const Op = Sequelize.Op;
 
-router.get('/', async (req, res) => {
-  await Subcategory.findAll({ where: { enabled: 1 }})
-    .then(subcategory => res.json(subcategory))
-    .catch(err => console.log("Error: " + err))
-});
+module.exports = {
+  async index(req, res) {
+    const { title, enabled } = req.query;
 
-router.get('/disabled', async (req, res) => {
-  await Subcategory.findAll({ where: { enabled: 0 }})
-    .then(subcategory => res.json(subcategory))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/id/:id', async (req, res) => {
-  await Subcategory.findByPk(req.params.id)
-    .then(subcategory => res.json(subcategory))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/title/:title', async (req, res) => {
-  await Subcategory.findAll({ 
-    where: { 
-      title: { 
-        [Op.like]: `%${req.params.title}%` 
+    await Subcategory.findAll({
+      where: {
+        title: { [Op.like]: `%${ title }%` },
+        [Op.or]: [{
+          enabled: { [Op.like]: `%${ enabled }%` }
+        }]
       }
-    }
-  })
-    .then(subcategory => res.json(subcategory))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.post('/register', async (req, res) => {
-  await Subcategory.findOrCreate({ 
-    where: { 
-      title: req.body.title 
-    }, 
-    defaults: { 
-      CategoryId: req.body.CategoryId, 
-      enabled: 1 
-    }
-  })
-    .then(([subcategory]) => {
-      res.json(subcategory.get({
-        plain: true,
-      }));
     })
-    .catch(err => console.log("Error: " + err))
-});
+      .then(subcategory => { return res.json(subcategory); })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-router.put('/update/:id', async (req, res) => {
-  await Subcategory.update(req.body, { where: { id: req.params.id }})
-    .then(subcategory => res.json(subcategory))
-    .catch(err => console.log("Error: " + err))
-});
+  async show(req, res) {
+    const { title } = req.query;
 
-router.delete('/delete/:id', async (req, res) => {
-  await Subcategory.destroy({ where: { id: req.params.id }})
-    .then(subcategory => res.json(subcategory))
-    .catch(err => console.log("Error: " + err))
-});
+    await Subcategory.findOne({
+      where: {
+        title: { [Op.like]: `%${ title }%` }
+      }
+    })
+      .then(subcategory => { return res.json(subcategory); })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-module.exports = router;
+  async store(req, res) {
+    const { categoryId, title } = req.body;
+
+    await Subcategory.findOrCreate({ where: { title }, defaults: { categoryId, enabled: 1 } })
+      .then(([subcategory, created]) => {
+        res.json(subcategory.get({ plain: true }));
+        console.log('Created subcategory: ' + created);
+      })
+      .catch(err => console.log('Error: ' + err))
+  },
+
+  async update(req, res) {
+    const { subcategory_id } = req.params;
+    const { categoryId, title, enabled } = req.body;
+
+    await Subcategory.update({ categoryId, title, enabled }, { where: { id: subcategory_id } })
+      .then(subcategory => { return res.json(subcategory); })
+      .catch(err => console.log('Error: ' + err))
+  },
+
+  async destroy(req, res) {
+    const { subcategory_id } = req.params;
+
+    await Subcategory.destroy({ where: { id: subcategory_id } })
+      .then(subcategory => { return res.json(subcategory); })
+      .catch(err => console.log('Error: ' + err))
+  }
+};

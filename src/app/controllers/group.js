@@ -1,83 +1,61 @@
-var express = require('express');
-var Sequelize = require('sequelize');
-var router = express.Router();
-
+const Sequelize = require('sequelize');
 const { Group } = require('../models');
-const { Category } = require('../models');
-const { Subcategory } = require('../models');
 
 const Op = Sequelize.Op;
 
-router.get('/', async (req, res) => {
-  await Group.findAll({ where: { enabled: 1 }})
-    .then(group => res.json(group))
-    .catch(err => console.log("Error: " + err))
-});
+module.exports = {
+  async index(req, res) {
+    const { title, enabled } = req.query;
 
-router.get('/disabled', async (req, res) => {
-  await Group.findAll({ where: { enabled: 0 }})
-    .then(group => res.json(group))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/id/:id', async (req, res) => {
-  await Group.findByPk(req.params.id)
-    .then(group => res.json(group))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/title/:title', async (req, res) => {
-  await Group.findAll({ 
-    where: { 
-      title: {
-        [Op.like]: `%${req.params.title}%`
+    await Group.findAll({
+      where: {
+        title: { [Op.like]: `%${ title }%` },
+        [Op.or]: [{ 
+          enabled: { [Op.like]: `%${ enabled }%` }
+        }]
       }
-    }
-  })
-    .then(group => res.json(group))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/:id/category', async (req, res) => {
-  await Group.findByPk(req.params.id, { include: [Category] })
-    .then(group => res.json(group.dataValues))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.post('/register', async (req, res) => {
-  const options = {
-    where: {},
-    defaults: {
-      enabled: 1
-    }
-  };
-
-  const { title } = req.body;
-
-  if (title !== undefined)
-    options.where.title = title;
-
-  await Group.findOrCreate({
-    options
-  })
-    .then(([group]) => {
-      res.json(group.get({
-        plain: true,
-      }));
     })
-    .catch(err => console.log("Error: "+ err))
-});
+      .then(group => { return res.json(group); })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-router.put('/update/:id', async (req, res) => {
-  await Group.update(req.body, { where: { id: req.params.id }})
-    .then(group => res.json(group))
-    .catch(err => console.log("Error: " + err))
-});
+  async show(req, res) {
+    const { title } = req.query;
 
-router.delete('/delete/:id', async (req, res) => {
-  await Group.destroy({ where: { id: req.params.id }})
-    .then(group => res.json(group))
-    .catch(err => console.log("Error: " + err))
-});
+    await Group.findOne({
+      where: {
+        title: { [Op.like]: `%${ title }%` }
+      }
+    })
+      .then(group => { return res.json(group) })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-module.exports = router;
+  async store(req, res) {
+    const { title } = req.body; 
+
+    await Group.findOrCreate({ where: { title }, defaults: { enabled: 1 } })
+      .then(([group, created]) => {
+        res.json(group.get({ plain: true }));
+        console.log('Created group: ' + created);
+      })
+      .catch(err => console.log('Error: ' + err))
+  },
+
+  async update(req, res) {
+    const { group_id } = req.params;
+    const { title, enabled } = req.body;
+
+    await Group.update({ title, enabled }, { where: { id: group_id } })
+      .then(group => { return res.json(group); })
+      .catch(err => console.log('Error: ' + err))
+  },
+
+  async destroy(req, res) {
+    const { group_id } = req.params;
+
+    await Group.destroy({ where: { id: group_id } })
+      .then(group => { return res.json(group); })
+      .catch(err => console.log('Error: ' + err));
+  }
+};

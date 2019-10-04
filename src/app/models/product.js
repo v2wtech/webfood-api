@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     valuePaid: DataTypes.DECIMAL(10,2),
     priceSell: DataTypes.DECIMAL(10,2),
-    GroupId: DataTypes.INTEGER,
-    CategoryId: DataTypes.INTEGER,
-    SubCategoryId: DataTypes.INTEGER,
+    groupId: DataTypes.INTEGER,
+    categoryId: DataTypes.INTEGER,
+    subcategoryId: DataTypes.INTEGER,
     enabled: DataTypes.BOOLEAN,
   }, {});
   

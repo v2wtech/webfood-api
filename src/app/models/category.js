@@ -1,15 +1,16 @@
+'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Category = sequelize.define('Category', {
-    GroupId: DataTypes.INTEGER,
+    groupId: DataTypes.INTEGER,
     title: DataTypes.STRING,
-    enabled: DataTypes.BOOLEAN,
+    enabled: DataTypes.BOOLEAN
   }, {});
 
-  Category.associate = (models) => {
+  Category.associate = models => {
     Category.belongsTo(models.Group);
     Category.hasMany(models.Subcategory);
     Category.hasMany(models.Product);
   };
-
+  
   return Category;
 };

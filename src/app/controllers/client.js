@@ -1,79 +1,67 @@
-var express = require('express');
-var Seqelize = require('sequelize');
-var router = express.Router();
-
+const Sequelize = require('sequelize');
 const { Client } = require('../models');
 
-const Op = Seqelize.Op;
+const Op = Sequelize.Op;
 
-router.get('/', async (req, res) => {
-  await Client.findAll({ where : { enabled: 1 }})
-    .then(client => res.json(client))
-    .catch(err => console.log("Error: " + err))
-});
+module.exports = {
+  async index(req, res) {
+    const { name, enabled } = req.query;
 
-router.get('/disabled', async (req, res) => {
-  await Client.findAll({ where : { enabled: 0 }})
-    .then(client => res.json(client))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/id/:id', async (req, res) => {
-  await Client.findByPk(req.params.id)
-    .then(client => res.json(client))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.get('/search/:client', async (req, res) => {
-  await Client.findAll({ 
-    where: {
-      [Op.or]: [
-        {
-          name: {
-            [Op.like]: `%${req.params.client}%`
-          }
-        },
-        {
-          phone: {
-            [Op.like]: `%${req.params.client}%`
-          }
-        }
-      ]
-    }
-  })
-    .then(client => res.json(client))
-    .catch(err => console.log("Error: " + err))
-});
-
-router.post('/register', async (req, res) => {
-  await Client.findOrCreate({ 
-    where : {
-      phone: req.body.phone,
-    },
-    defaults: {
-      name: req.body.name,
-      adress: req.body.adress,
-      enabled: 1
-    }
-  })
-    .then(([client]) => {
-      res.json(client.get({
-        plain: true,
-      }));
+    await Client.findAll({
+      where: {
+        name: { [Op.like]: `%${ name }%` },
+        [Op.or]: [{
+          enabled: { [Op.like]: `%${ enabled }%` }
+        }]
+      }
     })
-    .catch(err => console.log("Error: " + err))
-});
+      .then(client => { return res.json(client); })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-router.put('/update/:id', async (req, res) => {
-  await Client.update(req.body, { where: { id: req.params.id }})
-    .then(client => res.json(client))
-    .catch(err => console.log("Error: " + err))
-});
+  async show(req, res) {
+    const { name, phone } = req.query;
 
-router.delete('/delete/:id', async (req, res) => {
-  await Client.destroy({ where: { id: req.params.id }})
-    .then(client => res.json(client))
-    .catch(err => console.log("Error: " + err))
-});
+    await Client.findOne({
+      where: {
+        name: { [Op.like]: `%${ name }%` },
+        [Op.or]: [{
+          phone: { [Op.like]: `%${ phone }%` }
+        }]
+      }
+    })
+      .then(client => { return res.json(client); })
+      .catch(err => console.log('Error: ' + err))
+  },
 
-module.exports = router;
+  async store(req, res) {
+    const { name, phone, address } = req.body;
+
+    await Client.findOrCreate({
+      where: { phone },
+      defaults: { name, address, enabled: 1 }
+    })
+      .then(([client, created]) => {
+        res.json(client.get({ plain: true }));
+        console.log('Created client: ' + created);
+      })
+      .catch(err => console.log('Error: ' + err))
+  },
+
+  async update(req, res) {
+    const { client_id } = req.params;
+    const { name, phone, address, enabled } = req.body;
+
+    await Client.update({ name, phone, address, enabled }, { where: { id: client_id } })
+      .then(client => { return res.json(client); })
+      .catch(err => console.log('Error: ' + err))
+  },
+
+  async destroy(req, res) {
+    const { client_id } = req.params;
+
+    await Client.destroy({ where: { id: client_id } })
+      .then(client => { return res.json(client); })
+      .catch(err => console.log('Error: ' + err))
+  }
+};

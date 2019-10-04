@@ -1,40 +1,40 @@
 module.exports = {
-  up: (queryInterface, DataTypes) => {
-    return queryInterface.createTable('Subcategories', {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('Categories', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
       },
-      CategoryId: {
+      groupId: {
         allowNull: false,
-        type: DataTypes.INTEGER,
-        references: { model: 'Categories', key: 'id' },
+        type: Sequelize.INTEGER,
+        references: { model: 'Groups', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
       title: {
         allowNull: false,
         unique: true,
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
       },
       enabled: {
         allowNull: false,
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
       },
     });
   },
 
-  down: (queryInterface, DataTypes) => {
-    return queryInterface.dropTable('Subcategories');
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('Categories');
   }
 };
