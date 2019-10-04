@@ -59,6 +59,3 @@ module.exports = {
       .catch(err => console.log('Error: ' + err))
   }
 };
-
-
-
