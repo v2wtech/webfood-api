@@ -36,15 +36,15 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { name, rg, phone, role, permission, user, password } = req.body;
+    const { name, cpf, phone, role, permission, user, password } = req.body;
     
     const sanitizer = new Sanitizer();
     
     await Employee.findOrCreate({
-      where: { [Op.or]: [{ rg }, { user }] },
+      where: { [Op.or]: [{ cpf }, { user }] },
       defaults: {
         name,
-        rg,
+        cpf,
         phone: sanitizer.verify({ phone }),
         role,
         permission,
@@ -62,9 +62,9 @@ module.exports = {
 
   async update(req, res) {
     const { employee_id } = req.params;
-    const { name, rg, phone, role, permission, user, password, enabled } = req.body;
+    const { name, cpf, phone, role, permission, user, password, enabled } = req.body;
 
-    await Employee.update({ name, rg, phone, role, permission, user, password, enabled }, { where: { id: employee_id } })
+    await Employee.update({ name, cpf, phone, role, permission, user, password, enabled }, { where: { id: employee_id } })
       .then(employee => { return res.json(employee); })
       .catch(err => console.log('Error: ' + err))
   },
