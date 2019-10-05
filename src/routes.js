@@ -6,7 +6,7 @@ const { SubcategoryController } = require('./app/controllers');
 const { ProductController }     = require('./app/controllers');
 const { EmployeeController }    = require('./app/controllers');
 const { ClientController }      = require('./app/controllers');
-const { SessionController }      = require('./app/controllers');
+const { SessionController }     = require('./app/controllers');
 
 const routes = express.Router();
 
@@ -54,6 +54,5 @@ routes.delete('/api/clients/:client_id', ClientController.destroy);
 
 // Session
 routes.post('/api/login', SessionController.store);
-
 
 module.exports = routes;
