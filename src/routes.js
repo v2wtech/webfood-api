@@ -53,6 +53,6 @@ routes.put('/api/clients/:client_id', ClientController.update);
 routes.delete('/api/clients/:client_id', ClientController.destroy);
 
 // Session
-routes.post('/api/login', SessionController.store);
+routes.post('/api/sessions', SessionController.store);
 
 module.exports = routes;
