@@ -17,7 +17,7 @@ module.exports = {
           let payload = { id: employee.id };
           let token   = jwt.sign(payload, jwtOptions.secretOrKey);
   
-          res.json({ msg: 'ok', token: token });
+          res.json({ user_id: employee.id, admin: employee.role, permission: employee.permission, token: token });
         }
         else {
           res.status(401).json({ msg: 'Password is incorrect.' });
