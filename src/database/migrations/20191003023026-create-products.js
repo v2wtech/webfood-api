@@ -39,7 +39,7 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       subcategoryId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
         references: { model: 'Subcategories', key: 'id' },
         onUpdate: 'CASCADE',
