@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { Subcategory } = require('../models');
+const { Subcategory, Category } = require('../models');
 
 const Op = Sequelize.Op;
 
@@ -13,7 +13,8 @@ module.exports = {
         [Op.or]: [{
           enabled: { [Op.like]: `%${ enabled }%` }
         }]
-      }
+      }, 
+      include: [Category] 
     })
       .then(subcategory => { return res.json(subcategory); })
       .catch(err => console.log('Error: ' + err))
@@ -25,7 +26,8 @@ module.exports = {
     await Subcategory.findOne({
       where: {
         title: { [Op.like]: `%${ title }%` }
-      }
+      }, 
+      include: [Category]
     })
       .then(subcategory => { return res.json(subcategory); })
       .catch(err => console.log('Error: ' + err))
