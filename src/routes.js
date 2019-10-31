@@ -7,6 +7,7 @@ const { ProductController }     = require('./app/controllers');
 const { EmployeeController }    = require('./app/controllers');
 const { ClientController }      = require('./app/controllers');
 const { SessionController }     = require('./app/controllers');
+const { TableController }       = require('./app/controllers');
 
 const routes = express.Router();
 
@@ -51,6 +52,13 @@ routes.get('/api/clients/search', ClientController.show);
 routes.post('/api/clients/register', ClientController.store);
 routes.put('/api/clients/:client_id', ClientController.update);
 routes.delete('/api/clients/:client_id', ClientController.destroy);
+
+// Table
+routes.get('/api/tables', TableController.index);
+routes.get('/api/tables/search', TableController.show);
+routes.post('/api/tables/register', TableController.store);
+routes.put('/api/tables/:table_id', TableController.update);
+routes.delete('/api/tables/:table_id', TableController.destroy);
 
 // Session
 routes.post('/api/sessions', SessionController.store);
