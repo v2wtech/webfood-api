@@ -5,11 +5,11 @@ const Op = Sequelize.Op;
 
 module.exports = {
   async index(req, res) {
-    const { name, enabled } = req.query;
+    const { phone, enabled } = req.query;
 
     await Client.findAll({
       where: {
-        name: { [Op.like]: `%${ name }%` },
+        phone: { [Op.like]: `%${ phone }%` },
         [Op.or]: [{
           enabled: { [Op.like]: `%${ enabled }%` }
         }]
@@ -20,13 +20,13 @@ module.exports = {
   },
 
   async show(req, res) {
-    const { name, phone } = req.query;
+    const { phone, enabled } = req.query;
 
     await Client.findOne({
       where: {
-        name: { [Op.like]: `%${ name }%` },
+        phone: { [Op.like]: `%${ phone }%` },
         [Op.or]: [{
-          phone: { [Op.like]: `%${ phone }%` }
+          enabled: { [Op.like]: `%${ enabled }%` }
         }]
       }
     })
