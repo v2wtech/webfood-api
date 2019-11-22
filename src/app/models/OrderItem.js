@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 
   OrderItem.associate = (models) => {
     OrderItem.hasOne(models.Order);
-    OrderItem.hasMany(models.Product);
+    OrderItem.belongsTo(models.Product);
   };
   return OrderItem;
 };
