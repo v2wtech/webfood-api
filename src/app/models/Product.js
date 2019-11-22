@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     Product.belongsTo(models.Group);
     Product.belongsTo(models.Category);
     Product.belongsTo(models.Subcategory);
+    Product.belongsTo(models.OrderItem);
   };
 
   return Product;

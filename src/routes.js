@@ -1,13 +1,16 @@
 const express = require('express');
 
-const { GroupController }       = require('./app/controllers');
-const { CategoryController }    = require('./app/controllers');
-const { SubcategoryController } = require('./app/controllers');
-const { ProductController }     = require('./app/controllers');
-const { EmployeeController }    = require('./app/controllers');
-const { ClientController }      = require('./app/controllers');
-const { SessionController }     = require('./app/controllers');
-const { TableController }       = require('./app/controllers');
+const {
+  GroupController,
+  CategoryController,
+  SubcategoryController,
+  ProductController,
+  EmployeeController,
+  ClientController,
+  SessionController,
+  TableController,
+  DelivererController
+} = require('./app/controllers');
 
 const routes = express.Router();
 
@@ -59,6 +62,13 @@ routes.get('/api/tables/search', TableController.show);
 routes.post('/api/tables/register', TableController.store);
 routes.put('/api/tables/:table_id', TableController.update);
 routes.delete('/api/tables/:table_id', TableController.destroy);
+
+// Deliveryman
+routes.get('/api/deliverers', DelivererController.index);
+routes.get('/api/deliverers/search', DelivererController.show);
+routes.post('/api/deliverers/register', DelivererController.store);
+routes.put('/api/deliverers/:deliverer_id', DelivererController.update);
+routes.delete('/api/deliverers/:deliverer_id', DelivererController.destroy);
 
 // Session
 routes.post('/api/sessions', SessionController.store);
