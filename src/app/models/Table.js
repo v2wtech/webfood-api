@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   
   Table.associate = (models) => {
-    // associations can be defined here
+    Table.belongsTo(models.Order);
   };
-
+  
   return Table;
 };

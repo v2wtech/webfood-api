@@ -16,6 +16,20 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
+      tableId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: { model: 'Tables', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      clientId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: { model: 'Clients', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       receiveMethod: {
         allowNull: true,
         type: Sequelize.BOOLEAN

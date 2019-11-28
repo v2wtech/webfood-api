@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
   Order.associate = (models) => {
     Order.belongsTo(models.Deliverer);
     Order.belongsTo(models.OrderItem);
+    Order.hasMany(models.Table);
+    Order.hasMany(models.Client);
   };
 
   return Order;

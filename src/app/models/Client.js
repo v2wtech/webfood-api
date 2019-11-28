@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Client.associate = models => {
-    // associations can be defined here
+    Client.belongsTo(models.Order);
   };
 
   return Client;
