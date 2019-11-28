@@ -3,6 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Order = sequelize.define('Order', {
     orderType: DataTypes.BOOLEAN,
     orderTo: DataTypes.INTEGER,
+    tableId: DataTypes.INTEGER,
+    clientId: DataTypes.INTEGER,
     receiveMethod: DataTypes.BOOLEAN,
     deliverymanId: DataTypes.INTEGER,
     paymentMethod: DataTypes.STRING,
