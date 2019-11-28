@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     paymentMethod: DataTypes.STRING,
     status: DataTypes.STRING,
   }, {});
-  
+
   Order.associate = (models) => {
     Order.belongsTo(models.Deliverer);
     Order.belongsTo(models.OrderItem);
-    Order.hasMany(models.Table);
-    Order.hasMany(models.Client);
+    Order.belongsTo(models.Table);
+    Order.belongsTo(models.Client);
   };
 
   return Order;

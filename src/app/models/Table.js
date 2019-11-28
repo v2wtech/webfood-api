@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   
   Table.associate = (models) => {
-    Table.belongsTo(models.Order);
+    Table.hasMany(models.Order);
   };
   
   return Table;
