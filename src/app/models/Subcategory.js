@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Subcategory.associate = (models) => {
     Subcategory.belongsTo(models.Category);
-    Subcategory.hasMany(models.Product);
+    Subcategory.hasMany(models.Product, { onDelete: 'CASCADE', onUpdate: 'CASCADE', hooks: true });
   };
 
   return Subcategory;

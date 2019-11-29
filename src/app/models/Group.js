@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Group.associate = models => {
-    Group.hasMany(models.Category);
-    Group.hasMany(models.Product);
+    Group.hasMany(models.Category, { onDelete: 'CASCADE', onUpdate: 'CASCADE', hooks: true });
+    Group.hasMany(models.Product, { onDelete: 'CASCADE', onUpdate: 'CASCADE', hooks: true });
   };
   
   return Group;
